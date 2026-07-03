@@ -1,0 +1,203 @@
+/* ============================================================
+   VerticalSection.css — PIL Gaming | GSAP scroll-driven vertical
+   image sequence section (image00.png → image89.png)
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+/* ── outer section ── */
+.vertical-section {
+  position: relative;
+  width: 100%;
+}
+
+/* ── tall scroll space ── */
+.vertical-scroll-space {
+  position: relative;
+  width: 100%;
+}
+
+/* ── sticky viewport ── */
+.vertical-sticky {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: #04060f; /* fallback while video loads */
+}
+
+/* ── looping background video ── */
+.vertical-bg-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.5; /* Adjust from 0 (transparent) to 1 (fully visible) */
+}
+
+/* ── dark gradient tint, sits above the video, below the canvas ── */
+.vertical-sticky::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    160deg,
+    rgba(4, 6, 15, 0.616) 0%,
+    rgba(10, 14, 28, 0.616) 60%,
+    rgba(4, 6, 15, 0.616) 100%
+  );
+  pointer-events: none;
+}
+
+/* ── canvas ── */
+.vertical-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  image-rendering: auto;
+  z-index: 2;
+  /* no background — transparent so video shows through frame gaps */
+}
+.vertical-canvas--ready {
+  opacity: 1;
+}
+
+/* ── text box overlay at top ── */
+.vertical-text-box {
+  position: fixed;
+  top: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  pointer-events: none;
+  width: 90%;
+  max-width: 600px;
+  padding: 1.5rem 2rem;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(4px);
+}
+
+.vertical-text-box__content {
+  font-family: "Orbitron", "Share Tech Mono", monospace;
+  font-size: clamp(1.2rem, 4vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 
+    0 0 12px rgba(120, 220, 255, 0.5),
+    0 0 30px rgba(80, 180, 255, 0.25);
+  margin: 0;
+  text-align: center;
+}
+
+/* ── team header eyebrow ── */
+.team-header {
+  position: absolute;
+  top: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  pointer-events: none;
+  text-align: center;
+}
+
+/* ── loading screen ── */
+.vertical-loader {
+  position: absolute;
+  inset: 0;
+  /* loader covers the bg while frames load */
+  background: #060608;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+}
+
+.vertical-loader__title {
+  font-family: "Orbitron", monospace;
+  font-size: clamp(1rem, 3vw, 1.8rem);
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(120, 220, 255, 0.8);
+}
+
+.vertical-loader__bar {
+  width: 200px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+.vertical-loader__fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: linear-gradient(90deg, #78dcff, #b06bff);
+  transition: width 0.15s ease;
+  box-shadow: 0 0 8px rgba(120, 220, 255, 0.6);
+}
+
+.vertical-loader__count {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.3em;
+  color: rgba(255, 255, 255, 0.2);
+  text-transform: uppercase;
+}
+
+/* ── background progress bar (while rest loads) ── */
+.vertical-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  z-index: 15;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.vertical-progress__fill {
+  height: 100%;
+  background: linear-gradient(90deg, #78dcff, #b06bff);
+  transition: width 0.3s ease;
+  box-shadow: 0 0 8px rgba(120, 220, 255, 0.5);
+}
+
+/* ── reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .vertical-text-box {
+    opacity: 1 !important;
+    transform: translateX(-50%) !important;
+  }
+}
+
+/* ── responsive ── */
+@media (max-width: 640px) {
+  .vertical-text-box {
+    top: 1rem;
+    width: 95%;
+    padding: 1rem 1.5rem;
+  }
+  
+  .vertical-text-box__content {
+    font-size: clamp(0.9rem, 3vw, 1.5rem);
+  }
+}

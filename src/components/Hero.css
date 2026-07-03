@@ -1,0 +1,568 @@
+/* ============================================================
+   Hero.css — PIL Gaming  |  Coin sequence scroll hero
+   ============================================================ */
+
+/* ── reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── outer section — wraps entire scroll-driven experience ── */
+.hero {
+  position: relative;
+  width: 100%;
+  background: transparent;
+}
+
+/* ── fixed background image — always behind everything ── */
+.hero-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-image: url("/images/hero.png");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+
+/* ── tall scroll space that drives all ScrollTriggers ── */
+.hero-scroll-space {
+  position: relative;
+  width: 100%;
+  z-index: 1;
+}
+
+/* ── sticky coin viewport ── */
+.hero-sticky {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: transparent;
+  z-index: 2;
+  will-change: transform;
+}
+
+/* ── canvas — transparent so hero-bg shows behind coin ── */
+.hero-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: 3;
+}
+.hero-canvas--ready { opacity: 1; }
+
+/* ── loading screen ── */
+.hero-loader {
+  position: absolute;
+  inset: 0;
+  background: rgba(6, 6, 8, 0.85);
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+}
+.hero-loader__title {
+  font-family: "Orbitron", monospace;
+  font-size: clamp(1rem, 3vw, 1.8rem);
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(120, 220, 255, 0.8);
+}
+.hero-loader__bar {
+  width: 200px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+.hero-loader__fill {
+  position: absolute;
+  top: 0; left: 0;
+  height: 100%;
+  background: linear-gradient(90deg, #78dcff, #b06bff);
+  transition: width 0.15s ease;
+  box-shadow: 0 0 8px rgba(120, 220, 255, 0.6);
+}
+.hero-loader__count {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.3em;
+  color: rgba(255, 255, 255, 0.2);
+  text-transform: uppercase;
+}
+
+/* ── background progress bar ── */
+.hero-progress {
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%;
+  height: 2px;
+  z-index: 15;
+  background: rgba(255, 255, 255, 0.05);
+}
+.hero-progress__fill {
+  height: 100%;
+  background: linear-gradient(90deg, #78dcff, #b06bff);
+  transition: width 0.3s ease;
+  box-shadow: 0 0 8px rgba(120, 220, 255, 0.5);
+}
+
+/* ── reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .hero-bg { background-attachment: scroll; }
+  .hero-canvas { opacity: 1; }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   ABOUT SECTION — Minimal Elegant Design
+══════════════════════════════════════════════════════════════════ */
+.about {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 2rem;
+  overflow: hidden;
+}
+
+.about__container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Decorative dots and lines */
+.about__ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 3rem;
+  opacity: 0;
+  animation: aboutFadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.about__line {
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+}
+
+.about__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.about__dot--primary {
+  background: rgba(120, 220, 255, 0.6);
+}
+
+/* Title */
+.about__title {
+  font-family: "Orbitron", "Share Tech Mono", monospace;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.85);
+  text-transform: capitalize;
+  margin-bottom: 3rem;
+  opacity: 0;
+  animation: aboutFadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards;
+}
+
+/* Description */
+.about__content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.about__text {
+  font-family: "Share Tech Mono", "Courier New", monospace;
+  font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+  line-height: 2;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  margin: 0;
+  opacity: 0;
+  animation: aboutFadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s forwards;
+}
+
+.about__text:last-child {
+  opacity: 0;
+  animation: aboutFadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.6s forwards;
+}
+
+.about__highlight {
+  color: rgba(120, 220, 255, 0.8);
+  font-style: italic;
+}
+
+/* Animation */
+@keyframes aboutFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .about {
+    padding: 4rem 1.5rem;
+  }
+  
+  .about__ornament {
+    margin-bottom: 2rem;
+  }
+  
+  .about__title {
+    margin-bottom: 2rem;
+    font-size: clamp(2rem, 5vw, 3rem);
+  }
+  
+  .about__text {
+    font-size: clamp(0.85rem, 1.1vw, 1rem);
+    line-height: 1.8;
+  }
+}
+
+@media (max-width: 480px) {
+  .about {
+    padding: 3rem 1rem;
+    min-height: auto;
+  }
+  
+  .about__line {
+    width: 50px;
+  }
+  
+  .about__dot {
+    width: 6px;
+    height: 6px;
+  }
+  
+  .about__title {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    margin-bottom: 1.5rem;
+  }
+  
+  .about__text {
+    font-size: 0.85rem;
+    line-height: 1.7;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about__ornament,
+  .about__title,
+  .about__text {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   SHOWCASE SECTION — Image Gallery
+══════════════════════════════════════════════════════════════════ */
+.showcase {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1428 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  overflow: hidden;
+}
+
+.showcase::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(120, 220, 255, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(176, 107, 255, 0.06) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.showcase__container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.showcase__title {
+  font-family: "Orbitron", "Share Tech Mono", monospace;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 900;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #78dcff, #b06bff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.showcase__subtitle {
+  font-family: "Share Tech Mono", monospace;
+  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+  margin-bottom: 4rem;
+  letter-spacing: 0.08em;
+}
+
+.showcase__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  grid-auto-rows: 380px;
+}
+
+@media (min-width: 1024px) {
+  .showcase__grid {
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 400px;
+  }
+  .showcase__item--1 { grid-column: 1; animation-delay: 0.1s; }
+  .showcase__item--2 { grid-column: 2; animation-delay: 0.2s; }
+  .showcase__item--3 { grid-column: 3; animation-delay: 0.3s; }
+  .showcase__item--4 { grid-column: 1; grid-row: 2; animation-delay: 0.4s; }
+  .showcase__item--5 { grid-column: 2 / span 2; grid-row: 2; animation-delay: 0.5s; }
+}
+
+.showcase__item {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transform-origin: center;
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  opacity: 0;
+  animation: itemFadeIn 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  box-shadow: 0 8px 32px rgba(120, 220, 255, 0.1);
+}
+
+@keyframes itemFadeIn {
+  from { opacity: 0; transform: translateY(40px) scale(0.95); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.showcase__item:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 48px rgba(120, 220, 255, 0.25);
+}
+.showcase__item:hover .showcase__overlay { opacity: 0.8; }
+.showcase__item:hover .showcase__image   { transform: scale(1.08); }
+
+.showcase__image {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.showcase__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(120, 220, 255, 0.2) 0%, rgba(176, 107, 255, 0.1) 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  border-radius: 12px;
+}
+
+@keyframes shimmer {
+  0%   { background-position: -1000px 0; }
+  100% { background-position:  1000px 0; }
+}
+
+.showcase__item::before {
+  content: "";
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  animation: shimmer 3s infinite;
+  z-index: 10;
+  pointer-events: none;
+  opacity: 0;
+}
+.showcase__item:hover::before { opacity: 0.5; }
+
+@media (max-width: 768px) {
+  .showcase__grid { grid-template-columns: 1fr; grid-auto-rows: 320px; gap: 1.5rem; }
+  .showcase__item--4, .showcase__item--5 { grid-column: auto !important; grid-row: auto !important; }
+  .showcase { padding: 3rem 1.5rem; }
+}
+@media (max-width: 480px) {
+  .showcase__grid { grid-auto-rows: 240px; gap: 1rem; }
+  .showcase { padding: 2rem 1rem; }
+  .showcase__title { margin-bottom: 0.5rem; }
+  .showcase__subtitle { margin-bottom: 2rem; font-size: 0.85rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .showcase__item { animation: none; opacity: 1; }
+  .showcase__item:hover { transform: none; }
+  .showcase__image { transition: none; }
+  .showcase__overlay { transition: none; }
+  .showcase__item::before { animation: none; }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   EVENTS SECTION
+══════════════════════════════════════════════════════════════════ */
+.events {
+  position: relative;
+  width: 100%;
+  background: linear-gradient(180deg, #0a0e27 0%, #1a1f3a 50%, #0f1428 100%);
+  overflow: hidden;
+}
+
+.events__scroll-space {
+  position: relative;
+  width: 100%;
+}
+
+.event {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+  will-change: opacity, transform;
+  padding: 4rem 2rem;
+}
+
+.event__container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.event__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.event__image-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  aspect-ratio: 3/4;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(120, 220, 255, 0.2);
+}
+
+.event__image {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.event__text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+.event__title {
+  font-family: "Orbitron", "Share Tech Mono", monospace;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 900;
+  color: #78dcff;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.event__description {
+  font-family: "Share Tech Mono", "Courier New", monospace;
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.78);
+  margin: 0;
+  max-width: 600px;
+}
+
+@media (max-width: 1024px) {
+  .event__container { grid-template-columns: 1fr; gap: 2rem; padding: 4rem 2rem; text-align: center; }
+  .event__image-wrapper { max-width: 350px; margin: 0 auto; }
+  .event__text { padding: 0; align-items: center; }
+}
+@media (max-width: 768px) {
+  .event { height: auto; min-height: 100vh; }
+  .event__container { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 1.5rem; display: flex; flex-direction: column; justify-content: center; }
+  .event__image-wrapper { max-width: 300px; aspect-ratio: 3/4; margin: 0 auto; }
+  .event__title { font-size: clamp(1.5rem, 4vw, 2.5rem); }
+  .event__description { font-size: clamp(0.9rem, 1.2vw, 1rem); }
+  .event__text { align-items: center; }
+}
+@media (max-width: 480px) {
+  .event { min-height: 80vh; }
+  .event__container { padding: 2rem 1rem; gap: 1.5rem; }
+  .event__image-wrapper { max-width: 250px; }
+  .event__title { font-size: clamp(1.2rem, 3vw, 2rem); letter-spacing: 0.06em; }
+  .event__description { font-size: 0.875rem; line-height: 1.6; }
+}
+
+.events::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: 
+    radial-gradient(circle at 10% 30%, rgba(120, 220, 255, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 90% 70%, rgba(176, 107, 255, 0.05) 0%, transparent 40%);
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .event { transition: none; opacity: 1; }
+}

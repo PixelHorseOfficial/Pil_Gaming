@@ -1,0 +1,580 @@
+/* ============================================================
+   Footer.css — PIL Gaming  |  Animated cinematic footer
+   ============================================================ */
+
+/* ── Base ───────────────────────────────────────────────── */
+.footer {
+  position: relative;
+  width: 100%;
+  background: #04060f;
+  overflow: hidden;
+
+  /* Entrance animation state */
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.footer--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Particle canvas ─────────────────────────────────────── */
+.footer__particles {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Top beam ────────────────────────────────────────────── */
+.footer__top-beam {
+  position: relative;
+  width: 100%;
+  height: 1px;
+  z-index: 2;
+}
+
+.footer__top-beam-line {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 120, 120, 0.4) 30%, rgba(255, 107, 107, 0.4) 70%, transparent 100%);
+}
+
+.footer__top-beam-glow {
+  position: absolute;
+  top: -8px;
+  left: 0;
+  right: 0;
+  height: 18px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 120, 120, 0.12) 30%, rgba(255, 107, 107, 0.12) 70%, transparent 100%);
+  filter: blur(6px);
+}
+
+/* ── Background glows ────────────────────────────────────── */
+.footer__bg-glow {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  border-radius: 50%;
+}
+
+.footer__bg-glow--left {
+  width: 500px;
+  height: 300px;
+  top: 0;
+  left: -100px;
+  background: radial-gradient(ellipse, rgba(255, 120, 120, 0.055) 0%, transparent 70%);
+}
+
+.footer__bg-glow--right {
+  width: 500px;
+  height: 300px;
+  top: 0;
+  right: -100px;
+  background: radial-gradient(ellipse, rgba(255, 107, 107, 0.055) 0%, transparent 70%);
+}
+
+.footer__scanlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.05) 2px,
+    rgba(0, 0, 0, 0.05) 3px
+  );
+}
+
+/* ── Inner grid ──────────────────────────────────────────── */
+.footer__inner {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1.4fr;
+  gap: 3rem 4rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 5rem clamp(1.5rem, 5vw, 3.5rem) 4rem;
+}
+
+/* ── Brand column ────────────────────────────────────────── */
+.footer__brand {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.footer__logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  text-decoration: none;
+  transition: transform 0.3s ease;
+  align-self: flex-start;
+}
+
+.footer__logo:hover { transform: scale(1.03); }
+
+.footer__logo-icon {
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  transition: filter 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer__logo:hover .footer__logo-icon { filter: drop-shadow(0 0 14px rgba(255, 40, 40, 0.7)); }
+
+.footer__logo-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.footer__logo-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  line-height: 1;
+}
+
+.footer__logo-main {
+  font-family: "Orbitron", monospace;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  color: #ffffff;
+}
+
+.footer__logo-sub {
+  font-family: "Orbitron", monospace;
+  font-size: 0.45rem;
+  font-weight: 600;
+  letter-spacing: 0.35em;
+  color: rgba(255, 255, 255, 0.55);
+  text-transform: uppercase;
+}
+
+.footer__tagline {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 0.88rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.45);
+  max-width: 300px;
+}
+
+/* ── Socials ─────────────────────────────────────────────── */
+.footer__socials {
+  display: flex;
+  gap: 0.65rem;
+}
+
+.footer__social {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: rgba(255, 120, 120, 0.05);
+  border: 1px solid rgba(255, 120, 120, 0.18);
+  color: rgba(255, 255, 255, 0.55);
+  text-decoration: none;
+  transition: color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+}
+
+.footer__social-icon { width: 18px; height: 18px; position: relative; z-index: 1; }
+.footer__social-icon svg { width: 100%; height: 100%; }
+
+.footer__social-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(120, 220, 255, 0.2), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.footer__social:hover {
+  color: #ff7878;
+  border-color: rgba(255, 120, 120, 0.55);
+  transform: translateY(-4px) scale(1.08);
+  box-shadow: 0 8px 24px rgba(255, 120, 120, 0.25);
+}
+
+.footer__social:hover .footer__social-glow { opacity: 1; }
+
+/* ── Contact ─────────────────────────────────────────────── */
+.footer__contact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.footer__contact-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.38);
+  transition: color 0.3s ease;
+}
+
+.footer__contact-item:hover { color: rgba(255, 255, 255, 0.7); }
+
+.footer__contact-icon {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  color: rgba(255, 120, 120, 0.5);
+}
+
+/* ── Link columns ────────────────────────────────────────── */
+.footer__col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+
+  /* Staggered entrance */
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1) var(--col-delay, 0s),
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) var(--col-delay, 0s);
+}
+
+.footer--visible .footer__col {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.footer__col-heading {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+}
+
+.footer__col-heading-accent {
+  color: rgba(255, 120, 120, 0.5);
+  font-family: "Share Tech Mono", monospace;
+}
+
+.footer__col-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.footer__col-link {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.4rem 0;
+  text-decoration: none;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.42);
+  transition: color 0.25s ease, gap 0.25s ease;
+  border-bottom: 1px solid transparent;
+}
+
+.footer__col-link:hover {
+  color: rgba(255, 255, 255, 0.9);
+  gap: 0.8rem;
+}
+
+.footer__col-link-arrow {
+  font-size: 0.75rem;
+  color: rgba(255, 120, 120, 0.4);
+  transition: color 0.25s ease, transform 0.25s ease;
+}
+
+.footer__col-link:hover .footer__col-link-arrow {
+  color: #ff7878;
+  transform: translateX(3px);
+}
+
+/* ── Newsletter column ───────────────────────────────────── */
+.footer__col--cta {
+  gap: 1.4rem;
+}
+
+.footer__newsletter-desc {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 0.82rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.38);
+  margin: -0.4rem 0 0;
+}
+
+.footer__newsletter {
+  display: flex;
+  gap: 0;
+  border: 1px solid rgba(255, 120, 120, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(255, 120, 120, 0.03);
+  transition: border-color 0.3s ease;
+}
+
+.footer__newsletter:focus-within {
+  border-color: rgba(255, 120, 120, 0.5);
+  box-shadow: 0 0 20px rgba(255, 120, 120, 0.1);
+}
+
+.footer__newsletter-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0.7rem 1rem;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.85);
+  min-width: 0;
+}
+
+.footer__newsletter-input::placeholder {
+  color: rgba(255, 255, 255, 0.22);
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.78rem;
+}
+
+.footer__newsletter-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  background: rgba(255, 120, 120, 0.1);
+  border: none;
+  border-left: 1px solid rgba(255, 120, 120, 0.2);
+  cursor: pointer;
+  color: #ff7878;
+  transition: background 0.3s ease;
+  overflow: hidden;
+}
+
+.footer__newsletter-btn svg { width: 18px; height: 18px; position: relative; z-index: 1; }
+
+.footer__newsletter-btn-glow {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(255, 120, 120, 0.2), rgba(255, 107, 107, 0.15));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.footer__newsletter-btn:hover { background: rgba(255, 120, 120, 0.18); }
+.footer__newsletter-btn:hover .footer__newsletter-btn-glow { opacity: 1; }
+
+/* ── Event badge ─────────────────────────────────────────── */
+.footer__event-badge {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid rgba(255, 120, 120, 0.18);
+  border-radius: 8px;
+  background: rgba(255, 120, 120, 0.04);
+  position: relative;
+  overflow: hidden;
+}
+
+.footer__event-badge::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(180deg, #ff7878, #ff6b6b);
+}
+
+.footer__event-badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ff7878;
+  box-shadow: 0 0 10px #ff7878;
+  flex-shrink: 0;
+  margin-top: 4px;
+  animation: dot-pulse 2s ease-in-out infinite;
+}
+
+@keyframes dot-pulse {
+  0%, 100% { box-shadow: 0 0 10px #ff7878; }
+  50%       { box-shadow: 0 0 18px #ff7878, 0 0 32px rgba(255, 120, 120, 0.4); }
+}
+
+.footer__event-badge > div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.footer__event-badge-label {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 120, 120, 0.7);
+}
+
+.footer__event-badge-title {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.footer__event-badge-venue {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.38);
+}
+
+/* ── Bottom bar ──────────────────────────────────────────── */
+.footer__bottom {
+  position: relative;
+  z-index: 2;
+}
+
+.footer__bottom-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 5vw, 3.5rem);
+}
+
+.footer__bottom-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.07), transparent);
+  margin-bottom: 1.5rem;
+}
+
+.footer__bottom-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-bottom: 2rem;
+}
+
+.footer__copyright {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.22);
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+
+.footer__bottom-links {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.footer__bottom-link {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.22);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: color 0.25s ease;
+}
+
+.footer__bottom-link:hover { color: rgba(255, 120, 120, 0.7); }
+
+.footer__bottom-sep {
+  color: rgba(255, 255, 255, 0.12);
+  font-size: 0.72rem;
+}
+
+.footer__made-with {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.22);
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+
+.footer__made-accent {
+  color: rgba(255, 120, 120, 0.6);
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 1100px) {
+  .footer__inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem 3rem;
+  }
+
+  .footer__brand { grid-column: 1 / -1; }
+}
+
+@media (max-width: 680px) {
+  .footer__inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 3.5rem 1.5rem 3rem;
+  }
+
+  .footer__brand { grid-column: auto; }
+
+  .footer__bottom-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+
+  .footer__tagline { max-width: 100%; }
+}
+
+/* ── Reduced motion ─────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .footer {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .footer__col,
+  .footer__event-badge-dot {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ── Focus ────────────────────────────────────────────────── */
+.footer__social:focus-visible,
+.footer__col-link:focus-visible,
+.footer__bottom-link:focus-visible,
+.footer__newsletter-btn:focus-visible,
+.footer__logo:focus-visible {
+  outline: 2px solid #ff7878;
+  outline-offset: 3px;
+  border-radius: 4px;
+}

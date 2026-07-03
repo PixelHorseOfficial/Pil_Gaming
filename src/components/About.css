@@ -1,0 +1,175 @@
+/* ══════════════════════════════════════════════════════════════════
+   ABOUT SECTION — Minimal Elegant Design (no background)
+══════════════════════════════════════════════════════════════════ */
+
+.about {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: #00000088;
+  /* intentionally no background / background-color here —
+     the section is transparent and shows whatever sits behind it */
+}
+
+.about__container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Decorative dots and lines — title sits centered between two ornament groups */
+.about__ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  opacity: 0;
+  animation: aboutFadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.about__ornament-side {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.about__line {
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgb(255, 255, 255), transparent);
+}
+
+.about__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgb(255, 255, 255);
+}
+
+.about__dot--primary {
+  background: rgb(255, 255, 255);
+}
+
+/* Title — sits inline, between the two ornament groups */
+.about__title {
+  font-family: "Orbitron", "Share Tech Mono", monospace;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+  text-transform: capitalize;
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* Description */
+.about__content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.about__text {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 20px;
+  line-height: 2;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+  text-align: center;
+  margin: 0;
+  opacity: 0;
+  animation: aboutFadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s forwards;
+  padding-bottom: 0px;
+}
+
+.about__text:last-child {
+  opacity: 0;
+  animation: aboutFadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.6s forwards;
+}
+
+/* Animation */
+@keyframes aboutFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .about {
+    padding: 4rem 1.5rem;
+  }
+
+  .about__ornament {
+    margin-bottom: 2rem;
+    gap: 1rem;
+  }
+
+  .about__line {
+    width: 50px;
+  }
+
+  .about__title {
+    margin-bottom: 0;
+    font-size: clamp(2rem, 5vw, 3rem);
+  }
+
+  .about__text {
+    font-size: clamp(0.85rem, 1.1vw, 1rem);
+    line-height: 1.8;
+  }
+}
+
+@media (max-width: 480px) {
+  .about {
+    padding: 3rem 1rem;
+    min-height: auto;
+  }
+
+  .about__ornament {
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .about__line {
+    width: 50px;
+  }
+
+  .about__dot {
+    width: 6px;
+    height: 6px;
+  }
+
+  .about__title {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    margin-bottom: 0;
+  }
+
+  .about__text {
+    font-size: 0.85rem;
+    line-height: 1.7;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .about__ornament,
+  .about__text {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}

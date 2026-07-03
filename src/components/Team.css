@@ -1,0 +1,475 @@
+/* ============================================================
+   Team.css — PIL Gaming  |  GSAP Scroll-Driven Team Section
+   ============================================================ */
+
+/* ── Base ───────────────────────────────────────────────── */
+.team {
+  position: relative;
+  width: 100%;
+  background: #04060f;
+}
+
+/* ── Sticky container ───────────────────────────────────── */
+.team-sticky {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background:
+    linear-gradient(160deg, rgba(4,6,15,0.97) 0%, rgba(8,12,26,0.93) 60%, rgba(4,6,15,0.97) 100%),
+    url("/images/event.png") center / cover no-repeat;
+}
+
+/* ── Background accent glow ─────────────────────────────── */
+.team-bg-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 70% 80% at 75% 50%, rgba(var(--accent-rgb), 0.18) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 60% at 20% 50%, rgba(176,107,255,0.09) 0%, transparent 70%);
+  transition: background 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  animation: glow-breathe 7s ease-in-out infinite;
+}
+
+@keyframes glow-breathe {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.65; }
+}
+
+/* ── CRT scan lines ─────────────────────────────────────── */
+.team-scanlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.05) 2px,
+    rgba(0,0,0,0.05) 3px
+  );
+}
+
+/* ── Vignette ───────────────────────────────────────────── */
+.team-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background: radial-gradient(
+    ellipse 90% 90% at 50% 50%,
+    transparent 30%,
+    rgba(2,4,12,0.88) 100%
+  );
+}
+
+/* ── Header ─────────────────────────────────────────────── */
+.team-header {
+  position: absolute;
+  top: 5vh;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  white-space: nowrap;
+}
+
+.team-header__title {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  background: linear-gradient(90deg, #78dcff 0%, #b06bff 50%, #ff6b9d 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-transform: uppercase;
+  margin: 0;
+  filter: drop-shadow(0 0 20px rgba(120,220,255,0.2));
+}
+
+/* ── Main layout ────────────────────────────────────────── */
+.team-layout {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 1400px;
+  padding: 0 4vw;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 3vw;
+  align-items: center;
+  margin-top: 4vh;
+}
+
+/* ── Info Panel ─────────────────────────────────────────── */
+.team-info-panel {
+  display: flex;
+  align-items: center;
+}
+
+.team-info-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  padding: 2rem 2rem 2rem 1.6rem;
+  border-left: 2px solid rgba(var(--accent-rgb), 0.35);
+  position: relative;
+}
+
+.team-info-content::before {
+  content: "";
+  position: absolute;
+  left: -2px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, transparent, rgba(var(--accent-rgb), 0.8), transparent);
+  filter: blur(3px);
+}
+
+.team-info__header {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.team-info__badge {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1;
+  background: linear-gradient(135deg, var(--accent-color), #b06bff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  min-width: 55px;
+}
+
+.team-info__name {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 0.25rem;
+  line-height: 1.15;
+}
+
+.team-info__role {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  color: var(--accent-color);
+  text-transform: uppercase;
+  margin: 0;
+  font-weight: 600;
+}
+
+.team-info__bio {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 0.88rem;
+  line-height: 1.85;
+  color: rgba(255,255,255,0.65);
+  margin: 0;
+  max-width: 340px;
+}
+
+.team-info__divider {
+  width: 48px;
+  height: 1.5px;
+  background: linear-gradient(90deg, var(--accent-color), transparent);
+}
+
+.team-info__socials {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.team-info__social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  background: rgba(var(--accent-rgb), 0.08);
+  color: var(--accent-color);
+  border: 1px solid rgba(var(--accent-rgb), 0.25);
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  text-decoration: none;
+}
+
+.team-info__social-link svg {
+  width: 16px;
+  height: 16px;
+}
+
+.team-info__social-link:hover {
+  background: rgba(var(--accent-rgb), 0.22);
+  border-color: rgba(var(--accent-rgb), 0.55);
+  transform: translateY(-3px) scale(1.08);
+  box-shadow: 0 6px 18px rgba(var(--accent-rgb), 0.28);
+}
+
+/* ── Gallery ─────────────────────────────────────────────── */
+.team-gallery {
+  position: relative;
+  height: 58vh;
+  max-height: 520px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  gap: 1.2rem;
+  perspective: 1200px;
+  padding-left: 1rem;
+}
+
+/* ── Individual Card ─────────────────────────────────────── */
+.team-card {
+  position: relative;
+  height: 100%;
+  aspect-ratio: 0.52;
+  flex-shrink: 0;
+  transform-style: preserve-3d;
+  cursor: default;
+}
+
+.team-card.is-active {
+  height: 100%;
+  z-index: 5;
+}
+
+.team-card:not(.is-active) {
+  height: 88%;
+  align-self: flex-end;
+}
+
+/* ── Card Frame ─────────────────────────────────────────── */
+.team-card__frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.team-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.team-card.is-active .team-card__image {
+  transform: scale(1.04);
+}
+
+/* Accent glow overlay */
+.team-card__glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 60% 70% at 50% 60%,
+    rgba(var(--accent-rgb), 0.35) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 2;
+  mix-blend-mode: screen;
+}
+
+.team-card:not(.is-active) .team-card__glow {
+  opacity: 0.4;
+}
+
+/* Glowing border */
+.team-card__border {
+  position: absolute;
+  inset: 0;
+  border: 1.5px solid rgba(var(--accent-rgb), 0.55);
+  border-radius: 14px;
+  pointer-events: none;
+  z-index: 3;
+  box-shadow:
+    inset 0 0 24px rgba(var(--accent-rgb), 0.15),
+    0 0 32px rgba(var(--accent-rgb), 0.25);
+  transition: box-shadow 0.5s ease;
+}
+
+.team-card.is-active .team-card__border {
+  border-color: rgba(var(--accent-rgb), 0.8);
+  box-shadow:
+    inset 0 0 40px rgba(var(--accent-rgb), 0.25),
+    0 0 60px rgba(var(--accent-rgb), 0.45);
+  animation: border-pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes border-pulse {
+  0%, 100% { box-shadow: inset 0 0 40px rgba(var(--accent-rgb), 0.25), 0 0 60px rgba(var(--accent-rgb), 0.45); }
+  50%       { box-shadow: inset 0 0 55px rgba(var(--accent-rgb), 0.4),  0 0 80px rgba(var(--accent-rgb), 0.6); }
+}
+
+/* Top-left light beam */
+.team-card__beam {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.12) 0%, transparent 45%);
+}
+
+.team-card:not(.is-active) .team-card__beam {
+  opacity: 0.3;
+}
+
+/* ── Card label (shows on inactive cards) ────────────────── */
+.team-card__label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2rem 0.9rem 0.9rem;
+  background: linear-gradient(180deg, transparent 0%, rgba(4,6,15,0.75) 40%, rgba(4,6,15,0.96) 100%);
+  z-index: 4;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.team-card.is-active .team-card__label {
+  opacity: 0;
+}
+
+.team-card__label-name {
+  display: block;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.9);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.team-card__label-role {
+  display: block;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 0.7rem;
+  color: rgba(var(--accent-rgb), 0.85);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 2px;
+}
+
+.team-card__label-glow {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(var(--accent-rgb), 0.5), transparent);
+  box-shadow: 0 -8px 16px rgba(var(--accent-rgb), 0.2);
+}
+
+/* ── Progress dots ───────────────────────────────────────── */
+.team-progress {
+  position: absolute;
+  bottom: 4.5vh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.9rem;
+  z-index: 20;
+}
+
+.team-progress__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(120,220,255,0.25);
+  border: 1px solid rgba(120,220,255,0.35);
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.team-progress__dot.is-active {
+  background: var(--dot-accent, #78dcff);
+  border-color: transparent;
+  box-shadow: 0 0 14px var(--dot-accent, #78dcff);
+  transform: scale(1.4);
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 1100px) {
+  .team-layout {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 0 5vw;
+    margin-top: 8vh;
+  }
+
+  .team-gallery {
+    height: 38vh;
+    max-height: 300px;
+    justify-content: center;
+  }
+
+  .team-info-panel {
+    order: 2;
+  }
+
+  .team-gallery {
+    order: 1;
+  }
+}
+
+@media (max-width: 680px) {
+  .team-header__title {
+    font-size: 1.5rem;
+    letter-spacing: 0.1em;
+  }
+
+  .team-layout {
+    margin-top: 10vh;
+  }
+
+  .team-gallery {
+    height: 34vh;
+    max-height: 260px;
+    gap: 0.7rem;
+    padding-left: 0.5rem;
+  }
+
+  .team-card {
+    aspect-ratio: 0.48;
+  }
+
+  .team-info-content {
+    padding: 1.2rem 1.2rem 1.2rem 1rem;
+    gap: 1rem;
+  }
+
+  .team-info__name {
+    font-size: 1.2rem;
+  }
+
+  .team-info__bio {
+    font-size: 0.82rem;
+    max-width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .team-bg-glow,
+  .team-card__border,
+  .team-card__image {
+    animation: none !important;
+    transition: none !important;
+  }
+}
